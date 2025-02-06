@@ -1,0 +1,1 @@
+export const BaseURL = "https://backend1-o6jt.onrender.com"

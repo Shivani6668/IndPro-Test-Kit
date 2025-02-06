@@ -7,6 +7,7 @@ import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks, deleteTask, updateTask } from "../redux/taskSlice";
+import { BaseURL } from "../api";
 
 const TaskList = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,8 @@ const TaskList = () => {
 
       if (isEditTaskOpen) {
         const response = await axios.put(
-          `http://localhost:20000/api/tasks/${editTaskId}`,
+        
+          `${BaseURL}/api/tasks/${editTaskId}`,
           { title, category, priority, dueDate, status },
           {
             headers: {
@@ -74,7 +76,7 @@ const TaskList = () => {
         dispatch(updateTask(response.data));
       } else {
         const response = await axios.post(
-          "http://localhost:20000/api/tasks",
+          `${BaseURL}/api/tasks`,
           { title, category, priority, dueDate, status },
           {
             headers: {
@@ -118,7 +120,7 @@ const TaskList = () => {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.delete(`http://localhost:20000/api/tasks/${taskId}`, {
+      await axios.delete(`${BaseURL}/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       dispatch(deleteTask(taskId));
