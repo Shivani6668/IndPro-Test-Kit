@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 const Register = ({ setIsLogin }) => {
   const [name, setName] = useState("");
@@ -47,15 +48,22 @@ toast.success("Registration Successfull!")
     
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
-        {/* {error && <p className="text-red-500 text-center">{error}</p>} */}
+        
         <form onSubmit={handleSubmit} className="space-y-4">
           <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required className="w-full p-2 border border-gray-300 rounded-lg" />
           <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full p-2 border border-gray-300 rounded-lg" />
           <input type="text" placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} required className="w-full p-2 border border-gray-300 rounded-lg" />
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full p-2 border border-gray-300 rounded-lg" />
-          <button type="submit" className="w-full bg-blue-900 text-white p-2 rounded-lg" disabled={loading}>
-            {loading ? "Registering..." : "Register"}
-          </button>
+    
+        
+         <button 
+                    type="submit"
+                    className="w-full bg-blue-900 text-white p-2 rounded-lg"
+                    disabled={loading}
+                  >
+                    {loading ? <ClipLoader size={20} color="#ffffff" /> : 'Register'}
+                  </button>
+        
         </form>
         <p className="text-center mt-4">
           <button 

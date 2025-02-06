@@ -27,7 +27,7 @@ const TaskList = () => {
   const [filterCategory, setFilterCategory] = useState("All");
   const [filterStatus, setFilterStatus] = useState("All");
   const [errorMessage, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // Add this line
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   useEffect(() => {
     dispatch(fetchTasks());
@@ -50,12 +50,11 @@ const TaskList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isSubmitting) return; // Prevent multiple submissions
-    setIsSubmitting(true); // Set submitting state to true
-
+    if (isSubmitting) return; 
+    setIsSubmitting(true); 
     if (!title || !category || !priority || !dueDate) {
       setError("All fields are required.");
-      setIsSubmitting(false); // Reset submitting state
+      setIsSubmitting(false); 
       return;
     }
 
@@ -101,7 +100,7 @@ const TaskList = () => {
       console.error("Error saving task:", err);
       setError("Failed to save task. Please try again.");
     } finally {
-      setIsSubmitting(false); // Reset submitting state
+      setIsSubmitting(false); 
     }
   };
 
@@ -138,85 +137,93 @@ const TaskList = () => {
   });
 
   if (loading) return <p>Loading tasks...</p>;
+
+
+  
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="p-6 min-h-screen bg-[#ebecff] text-black">
-      <h1 className="text-3xl font-bold text-start mb-6">Task List</h1>
+      <h1 className="text-3xl font-bold text-start mb-6">All Task</h1>
 
-      <div className="flex ml-auto gap-4 flex-wrap justify-end items-center space-x-2 mb-4 p-2 max-w-full lg:max-w-xl">
-        <div className="relative w-full sm:w-64">
-          <AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search tasks"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="p-2 pl-10 w-full rounded-md text-black border border-gray-300 focus:outline-none"
-          />
-        </div>
+      <div className="flex flex-wrap justify-between items-center gap-4 p-2 mb-4 max-w-full lg:max-w-xl ml-auto">
+ 
+      <div className="relative w-full sm:w-64 md:w-72">
+      <AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+   
+    <input
+    type="text"
+    placeholder="Search tasks"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    className="p-2 pl-10 w-full rounded-md text-black border border-gray-300 focus:outline-none"
+  />
+</div>
 
-        <div className="flex flex-wrap justify-start space-x-1 mb-2">
-          <button
-            onClick={() => setFilterPriority("All")}
-            className={`px-3 py-1 rounded-md text-sm ${filterPriority === "All" ? "bg-blue-900 text-white" : "bg-gray-300"}`}
-          >
-            All Priorities
-          </button>
-          <button
-            onClick={() => setFilterPriority("High")}
-            className={`px-3 py-1 rounded-md text-sm ${filterPriority === "High" ? "bg-red-500 text-white" : "bg-gray-300"}`}
-          >
-            High Priority
-          </button>
-          <button
-            onClick={() => setFilterPriority("Medium")}
-            className={`px-3 py-1 rounded-md text-sm ${filterPriority === "Medium" ? "bg-yellow-500 text-white" : "bg-gray-300"}`}
-          >
-            Medium Priority
-          </button>
-          <button
-            onClick={() => setFilterPriority("Low")}
-            className={`px-3 py-1 rounded-md text-sm ${filterPriority === "Low" ? "bg-green-500 text-white" : "bg-gray-300"}`}
-          >
-            Low Priority
-          </button>
-        </div>
+<div className="flex flex-wrap justify-start space-x-1 mb-2">
+  <button
+    onClick={() => setFilterPriority("All")}
+    className={`px-3 py-1 rounded-md text-sm ${filterPriority === "All" ? "bg-blue-900 text-white" : "bg-gray-300"}`}
+  >
+    All Priorities
+  </button>
+  <button
+    onClick={() => setFilterPriority("High")}
+    className={`px-3 py-1 rounded-md text-sm ${filterPriority === "High" ? "bg-red-500 text-white" : "bg-gray-300"}`}
+  >
+    High Priority
+  </button>
+  <button
+    onClick={() => setFilterPriority("Medium")}
+    className={`px-3 py-1 rounded-md text-sm ${filterPriority === "Medium" ? "bg-yellow-500 text-white" : "bg-gray-300"}`}
+  >
+    Medium Priority
+  </button>
+  <button
+    onClick={() => setFilterPriority("Low")}
+    className={`px-3 py-1 rounded-md text-sm ${filterPriority === "Low" ? "bg-green-500 text-white" : "bg-gray-300"}`}
+  >
+    Low Priority
+  </button>
+</div>
 
-        <div className="flex flex-wrap justify-start space-x-1 mb-2">
-          <select
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-3 py-1 rounded-md text-sm bg-gray-300"
-          >
-            <option value="All">All Categories</option>
-            <option value="Work">Work</option>
-            <option value="Personal">Personal</option>
-            <option value="Urgent">Urgent</option>
-          </select>
+<div className="flex flex-wrap justify-start space-x-1 mb-2 w-full sm:w-auto">
+ 
+  <select
+    value={filterCategory}
+    onChange={(e) => setFilterCategory(e.target.value)}
+    className="px-3 py-1 rounded-md text-sm bg-gray-300"
+  >
+    <option value="All">All Categories</option>
+    <option value="Work">Work</option>
+    <option value="Personal">Personal</option>
+    <option value="Urgent">Urgent</option>
+  </select>
 
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-1 rounded-md text-sm bg-gray-300"
-          >
-            <option value="All">All Statuses</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-            <option value="Ongoing">Ongoing</option>
-          </select>
-        </div>
+  <select
+    value={filterStatus}
+    onChange={(e) => setFilterStatus(e.target.value)}
+    className="px-3 py-1 rounded-md text-sm bg-gray-300"
+  >
+    <option value="All">All Statuses</option>
+    <option value="pending">Pending</option>
+    <option value="completed">Completed</option>
+    <option value="Ongoing">Ongoing</option>
+  </select>
+</div>
 
-        <button
-          className="px-3 py-1 rounded-md text-sm bg-blue-900 text-white"
-          onClick={() => {
-            setIsAddTaskOpen(true);
-            setIsEditTaskOpen(false);
-          }}
-        >
-          Add New Task
-        </button>
-      </div>
+<button
+  className="px-3 py-1 rounded-md text-sm bg-blue-900 text-white w-full sm:w-auto"
+
+  onClick={() => {
+    setIsAddTaskOpen(true);
+    setIsEditTaskOpen(false);
+  }}
+>
+  Add New Task
+</button>
+</div>
+
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
         {filteredTasks.map((task) => (
@@ -236,7 +243,8 @@ const TaskList = () => {
               </button>
             </div>
 
-            <h2 className="text-lg font-semibold mb-2">{task.title}</h2>
+            <h2 className="text-2xl font-semibold mb-2">{task.title}</h2>
+
             <p className="text-sm text-gray-600">Category: {task.category}</p>
             <p className="text-sm text-gray-600">Status: {task.status}</p>
             <p className="text-sm text-gray-600">Due Date: {formatDate(task.dueDate)}</p>
@@ -245,13 +253,26 @@ const TaskList = () => {
               {task.priority} Priority
             </span>
           </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         ))}
 
         <div
-          className="p-4 rounded-lg shadow-md border-2 bg-white border-dashed border-black cursor-pointer flex items-center justify-center"
+          className="p-4 rounded-lg shadow-md border-2 border-dashed border-black cursor-pointer flex items-center justify-center"
           onClick={() => setIsAddTaskOpen(true)}
         >
-          <MdAdd className="text-2xl text-black" />
+          <MdAdd className="text-2xl text-black" /> Add New Task
         </div>
       </div>
 
@@ -336,7 +357,7 @@ const TaskList = () => {
             <button
               type="submit"
               className="block w-full bg-blue-900 text-white p-2 rounded-md hover:bg-blue-800"
-              disabled={isSubmitting} // Disable button while submitting
+              disabled={isSubmitting} 
             >
               {isEditTaskOpen ? "Update Task" : "Add Task"}
             </button>
@@ -348,3 +369,22 @@ const TaskList = () => {
 };
 
 export default TaskList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

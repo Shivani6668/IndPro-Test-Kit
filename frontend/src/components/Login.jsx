@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 const Login = ({ setIsLogin }) => {
   const [email, setEmail] = useState("");
@@ -48,8 +49,7 @@ const Login = ({ setIsLogin }) => {
     <div className="flex flex-grow items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        {/* {error && <p className="text-red-500 text-center">{error}</p>} */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
@@ -66,13 +66,16 @@ const Login = ({ setIsLogin }) => {
             required
             className="w-full p-2 border border-gray-300 rounded-lg"
           />
-          <button
+     
+   
+   <button 
             type="submit"
             className="w-full bg-blue-900 text-white p-2 rounded-lg"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? <ClipLoader size={20} color="#ffffff" /> : 'Login'}
           </button>
+   
         </form>
         <p className="text-center mt-4">
           <button 

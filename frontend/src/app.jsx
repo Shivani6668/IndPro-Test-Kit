@@ -12,18 +12,13 @@ function App() {
     <Provider store={store}>
       <Router>
         <Routes>
-          {/* Route for the Main page (root /) */}
-          <Route path="/" element={<Main />} />
+           <Route path="/" element={<Main />} />
           
-          {/* Route for the Dashboard page (Welcome message with sidebar and navbar) */}
           <Route path="/dashboard" element={<Dashboard />}>
-            {/* Default content when /dashboard is accessed */}
             <Route index element={<Home />} />
           </Route>
 
-          {/* Route for the TaskList page (sidebar and navbar with task list) */}
           <Route path="/list" element={<Dashboard />}>
-            {/* Content rendered for the /list route */}
             <Route index element={<TaskList />} />
           </Route>
           

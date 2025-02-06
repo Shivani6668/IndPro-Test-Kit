@@ -1,17 +1,13 @@
-// src/redux/taskSlice.js
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BaseURL } from "../api";
 
 const API_URL = `${BaseURL}/api/tasks`;
 
-// Function to get the token from localStorage
 const getAuthToken = () => {
   return localStorage.getItem("token");
 };
 
-// Set the token in the request headers for axios
 const axiosConfig = () => {
   const token = getAuthToken();
   return token
@@ -23,11 +19,10 @@ const axiosConfig = () => {
     : {};
 };
 
-// Fetch tasks
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(API_URL, axiosConfig()); // Include token in request
-    console.log("API response:", response.data); // Log the API response
+    const response = await axios.get(API_URL, axiosConfig()); 
+    console.log("API response:", response.data); 
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to fetch tasks");
@@ -37,7 +32,7 @@ export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async (_, { rejec
 // Add task
 export const addTask = createAsyncThunk("tasks/addTask", async (taskData, { rejectWithValue }) => {
   try {
-    const response = await axios.post(API_URL, taskData, axiosConfig()); // Include token in request
+    const response = await axios.post(API_URL, taskData, axiosConfig()); 
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to add task");
@@ -47,7 +42,7 @@ export const addTask = createAsyncThunk("tasks/addTask", async (taskData, { reje
 // Update task
 export const updateTask = createAsyncThunk("tasks/updateTask", async (task, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`${API_URL}/${task._id}`, task, axiosConfig()); // Include token in request
+      const response = await axios.put(`${API_URL}/${task._id}`, task, axiosConfig()); 
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Failed to update task");
@@ -57,7 +52,7 @@ export const updateTask = createAsyncThunk("tasks/updateTask", async (task, { re
 // Delete task
 export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id, { rejectWithValue }) => {
   try {
-    await axios.delete(`${API_URL}/${id}`, axiosConfig()); // Include token in request
+    await axios.delete(`${API_URL}/${id}`, axiosConfig());
     return id;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to delete task");
