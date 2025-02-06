@@ -18,7 +18,7 @@ router.get("/tasks", authMiddleware, async (req, res) => {
 router.post("/tasks", authMiddleware, async (req, res) => {
   try {
     const { title, description, category, tags, status, priority, dueDate } = req.body;
-    const userId = req.user.id; // Get user from the token
+    const userId = req.user.id; 
 
     const newTask = new Task({
       title,
@@ -26,8 +26,8 @@ router.post("/tasks", authMiddleware, async (req, res) => {
       category,
       tags,
       status,
-      priority,  // Add priority to the task
-      dueDate,   // Add dueDate to the task
+      priority, 
+      dueDate,   
       user: userId,
     });
 
@@ -52,19 +52,16 @@ router.put("/tasks/:id", authMiddleware, async (req, res) => {
   try {
     const { title, description, category, tags, status, priority, dueDate } = req.body;
     
-    // Find and update the task by its ID
-    const task = await Task.findByIdAndUpdate(
+     const task = await Task.findByIdAndUpdate(
       req.params.id,
-      { title, description, category, tags, status, priority, dueDate }, // Ensure new fields are included
-      { new: true } // Return the updated task
+      { title, description, category, tags, status, priority, dueDate },
+      { new: true } 
     );
     
-    // If the task doesn't exist
-    if (!task) {
+     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // Respond with the updated task
     res.json(task);
   } catch (err) {
     res.status(500).json({ message: err.message });

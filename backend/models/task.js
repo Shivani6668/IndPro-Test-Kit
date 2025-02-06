@@ -12,9 +12,9 @@ const TaskSchema = new mongoose.Schema(
     priority: {
       type: String,
       enum: ["High", "Medium", "Low"],
-      required: true,  // Ensure priority is specified
+      required: true, 
     },
-    dueDate: { type: Date, required: true },  // Ensure due date is specified
+    dueDate: { type: Date, required: true }, 
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
